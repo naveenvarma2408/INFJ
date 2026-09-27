@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nirantaraveda | Professional INFJ Spiritual Coaching</title>
+    <meta name="description" content="nirantaraveda offers professional INFJ spiritual coaching, specialized healing, and boundary setting through YouTube videos and one-on-one coaching services.">
+    <link rel="canonical" href="https://theempathguide.com">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <h1>NirantaraVeda</h1>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Build Your Inner Sovereignty Alignment Kingdom Today</h1>
+                <p class="hero-subtitle">Professional INFJ spiritual coaching for growth, grounding, and aligned living</p>
+                <p class="hero-specialty">Specialized in INFJ healing and boundary setting</p>
+                <button class="btn-primary" onclick="scrollToServices()">Start Your Journey</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Services Section with Tabs -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">My Services</h2>
+            
+            <!-- Tab Navigation -->
+            <div class="tab-nav">
+                <button class="tab-btn active" data-tab="videos">Educational Videos</button>
+                <button class="tab-btn" data-tab="sessions">One-on-One INFJ Spiritual Coaching Services</button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tab-content">
+                <!-- Videos Tab -->
+                <div id="videos" class="tab-pane active">
+                    <div class="tab-header">
+                        <h3>Educational Videos</h3>
+                        <p>Tap any tile below to open the NirantaraVeda YouTube channel and explore educational content on healing, alignment, and boundaries.</p>
+                    </div>
+                    <div class="content-grid">
+                        <a class="content-card video-card" href="https://www.youtube.com/watch?v=HeJJxNksnTI" target="_blank" rel="noopener noreferrer" aria-label="Watch INFJ, Become the Person Who Can Live Your Dream on YouTube">
+                            <div class="video-thumb">
+                                <img src="https://i.ytimg.com/vi/HeJJxNksnTI/hqdefault.jpg" alt="INFJ, Become the Person Who Can Live Your Dream thumbnail">
+                                <span class="play-badge">▶</span>
+                                <span class="video-duration">YouTube Video</span>
+                            </div>
+                            <div class="video-meta">
+                                <p class="video-channel">NirantaraVeda</p>
+                                <h4>INFJ, Become the Person Who Can Live Your Dream</h4>
+                                <p>Practical reflections for clarity, calm, and self-trust.</p>
+                                <span class="video-cta">Watch video</span>
+                            </div>
+                        </a>
+                        <a class="content-card video-card featured" href="https://www.youtube.com/watch?v=btYVHxsL5Hw" target="_blank" rel="noopener noreferrer" aria-label="Watch The INFJ Approach to Sustainable Weight Loss on YouTube">
+                            <div class="video-thumb">
+                                <img src="https://i.ytimg.com/vi/btYVHxsL5Hw/hqdefault.jpg" alt="The INFJ Approach to Sustainable Weight Loss thumbnail">
+                                <span class="play-badge">▶</span>
+                                <span class="video-duration">YouTube Video</span>
+                            </div>
+                            <div class="video-meta">
+                                <p class="video-channel">NirantaraVeda</p>
+                                <h4>The INFJ Approach to Sustainable Weight Loss</h4>
+                                <p>Learn how to protect your energy and communicate with confidence.</p>
+                                <span class="video-cta">Watch video</span>
+                            </div>
+                        </a>
+                        <a class="content-card video-card" href="https://www.youtube.com/watch?v=I9p1f32zhWM" target="_blank" rel="noopener noreferrer" aria-label="Watch INFJ, finding true love may be easier than you think on YouTube">
+                            <div class="video-thumb">
+                                <img src="https://i.ytimg.com/vi/I9p1f32zhWM/hqdefault.jpg" alt="INFJ, finding true love may be easier than you think thumbnail">
+                                <span class="play-badge">▶</span>
+                                <span class="video-duration">YouTube Video</span>
+                            </div>
+                            <div class="video-meta">
+                                <p class="video-channel">NirantaraVeda</p>
+                                <h4>INFJ, finding true love may be easier than you think ❤️</h4>
+                                <p>Deepen your inner alignment with teachings that support purpose and resilience.</p>
+                                <span class="video-cta">Watch video</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Sessions Tab -->
+                <div id="sessions" class="tab-pane">
+                    <div class="tab-header">
+                        <h3>One-on-One INFJ Spiritual Coaching Services</h3>
+                        <p>Personalized coaching designed for INFJ healing, boundary setting, and spiritual alignment</p>
+                    </div>
+                    <div class="content-grid">
+                        <div class="content-card featured">
+                            <div class="card-icon">🎯</div>
+                            <h4>Discovery Session</h4>
+                            <p>A complimentary 30-minute session to explore your goals, healing needs, and coaching fit.</p>
+                            <div class="price">Free</div>
+                            <button class="btn-primary" onclick="openBookingModal('discovery')">Book Now</button>
+                        </div>
+                        <div class="content-card">
+                            <div class="card-icon">🚀</div>
+                            <h4>Alignment Package</h4>
+                            <p>6-week intensive coaching program with weekly sessions and supportive follow-through.</p>
+                            <div class="price">$997</div>
+                            <button class="btn-secondary" onclick="openPaymentModal('transformation', 997)">Buy Now</button>
+                        </div>
+                        <div class="content-card infj-special">
+                            <div class="card-icon">🔮</div>
+                            <h4>INFJ Healing Intensive</h4>
+                            <p>Specialized 8-week program designed for INFJs working through perfectionism, boundaries, and authentic self-expression.</p>
+                            <div class="price">$1,297</div>
+                            <button class="btn-secondary" onclick="openPaymentModal('infj-intensive', 1297)">Transform Now</button>
+                        </div>
+                        <div class="content-card">
+                            <div class="card-icon">🌟</div>
+                            <h4>Ongoing Spiritual Coaching</h4>
+                            <p>Monthly coaching sessions for continuous growth, clarity, and accountability.</p>
+                            <div class="price">$197/month</div>
+                            <button class="btn-secondary" onclick="openPaymentModal('ongoing', 197)">Get Started</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-photo">
+                    <img src="assets/saranya-photo.jpeg" 
+                         alt="Saranya Kolukuluri - INFJ Life Coach" 
+                         class="coach-photo"
+                         onerror="this.style.display='none'">
+                </div>
+                <h2>About nirantaraveda</h2>
+                <p>Hi, I'm <strong>nirantaraveda</strong>, and I offer professional INFJ spiritual coaching focused on helping you create meaningful change with clarity, calm, and purpose.</p>
+                <p>As an <strong>INFJ</strong>, I bring deep empathy and intuitive insight to my coaching practice. I specialize in helping fellow <strong>INFJs</strong> with healing, boundary setting, and authentic self-expression.</p>
+                <p>My approach combines practical coaching with spiritual alignment so you can honor your sensitivity without losing yourself in other people's expectations.</p>
+                <div class="personality-highlights">
+                    <div class="highlight-item">
+                        <span class="highlight-icon">🔮</span>
+                        <span>Intuitive Understanding</span>
+                    </div>
+                    <div class="highlight-item">
+                        <span class="highlight-icon">💜</span>
+                        <span>Empathetic Connection</span>
+                    </div>
+                    <div class="highlight-item">
+                        <span class="highlight-icon">🌱</span>
+                        <span>Personal Growth Focus</span>
+                    </div>
+                    <div class="highlight-item">
+                        <span class="highlight-icon">✨</span>
+                        <span>Authentic Transformation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Ready to Transform Your Life?</h2>
+            <p>Take the first step toward your transformation. Reach out to nirantaraveda to schedule your complimentary discovery session.</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span class="contact-icon">📧</span>
+                    <span>nirantara veda</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 nirantaraveda - Professional INFJ Spiritual Coaching. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('paymentModal')">&times;</span>
+            <h2>Complete Your Purchase</h2>
+            <div id="paymentDetails">
+                <h3 id="serviceName"></h3>
+                <div class="payment-amount">
+                    <span>Total Amount: </span>
+                    <span id="paymentAmount"></span>
+                </div>
+            </div>
+            
+            <!-- Single Payment Form -->
+            <div class="payment-form-container">
+                <form id="paymentForm" onsubmit="processPayment(event)">
+                    <h4>Payment Information</h4>
+                    
+                    <!-- Personal Details -->
+                    <div class="form-section">
+                        <h5>Contact Information</h5>
+                        <div class="form-group">
+                            <label for="fullName">Full Name *</label>
+                            <input type="text" id="fullName" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="paymentEmail">Email Address *</label>
+                            <input type="email" id="paymentEmail" placeholder="john@example.com" required>
+                        </div>
+                    </div>
+                    
+                    <!-- Payment Method Selection -->
+                    <div class="form-section">
+                        <h5>Choose Payment Method</h5>
+                        <div class="payment-methods">
+                            <label class="payment-method-option">
+                                <input type="radio" name="paymentMethod" value="card" checked>
+                                <div class="method-card">
+                                    <span class="method-icon">💳</span>
+                                    <span class="method-text">Credit/Debit Card</span>
+                                </div>
+                            </label>
+                            <label class="payment-method-option">
+                                <input type="radio" name="paymentMethod" value="upi">
+                                <div class="method-card">
+                                    <span class="method-icon">📱</span>
+                                    <span class="method-text">UPI Payment</span>
+                                </div>
+                            </label>
+                            <label class="payment-method-option">
+                                <input type="radio" name="paymentMethod" value="paypal">
+                                <div class="method-card">
+                                    <span class="method-icon">💰</span>
+                                    <span class="method-text">PayPal</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Card Payment Details (Default) -->
+                    <div id="cardDetails" class="payment-details">
+                        <h5>Card Details</h5>
+                        <div class="form-group">
+                            <label for="card-element">Card Information</label>
+                            <div id="card-element" class="stripe-card-element">
+                                <!-- Stripe Elements will create form elements here -->
+                            </div>
+                            <div id="card-errors" role="alert" class="stripe-error"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- UPI Details (Hidden by default) -->
+                    <div id="upiDetails" class="payment-details" style="display: none;">
+                        <h5>UPI Payment</h5>
+                        <div class="upi-options">
+                            <p>Choose your preferred UPI method:</p>
+                            <div class="upi-apps">
+                                <button type="button" class="upi-app-btn" onclick="selectUPIApp('gpay')">
+                                    <span>📱</span> Google Pay
+                                </button>
+                                <button type="button" class="upi-app-btn" onclick="selectUPIApp('phonepe')">
+                                    <span>💜</span> PhonePe
+                                </button>
+                                <button type="button" class="upi-app-btn" onclick="selectUPIApp('paytm')">
+                                    <span>💙</span> Paytm
+                                </button>
+                            </div>
+                            <div class="upi-divider">
+                                <span>OR</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="upiId">Enter UPI ID</label>
+                                <input type="text" id="upiId" placeholder="yourname@paytm">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- PayPal Details (Hidden by default) -->
+                    <div id="paypalDetails" class="payment-details" style="display: none;">
+                        <h5>PayPal Payment</h5>
+                        <p>You will be redirected to PayPal to complete your payment securely.</p>
+                        <div class="paypal-info">
+                            <span class="paypal-icon">💰</span>
+                            <span>Secure payment via PayPal</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Terms and Submit -->
+                    <div class="form-section">
+                        <label class="checkbox-group">
+                            <input type="checkbox" id="agreeTerms" required>
+                            <span class="checkmark"></span>
+                            I agree to the <a href="#" onclick="openTerms()">Terms of Service</a> and <a href="#" onclick="openPrivacy()">Privacy Policy</a>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="payment-btn">
+                        <span class="btn-text">Complete Payment</span>
+                        <span class="btn-amount" id="btnAmount"></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('bookingModal')">&times;</span>
+            <h2>Book Your Discovery Session</h2>
+            <p>Schedule your complimentary 30-minute discovery session with Saranya</p>
+            <form id="bookingForm" onsubmit="processBooking(event)">
+                <div class="form-group">
+                    <label for="bookingName">Full Name</label>
+                    <input type="text" id="bookingName" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="bookingEmail">Email Address</label>
+                    <input type="email" id="bookingEmail" placeholder="your@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="bookingDate">Preferred Date</label>
+                    <input type="date" id="bookingDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="bookingTime">Preferred Time</label>
+                    <select id="bookingTime" required>
+                        <option value="">Select a time</option>
+                        <option value="09:00">9:00 AM</option>
+                        <option value="10:00">10:00 AM</option>
+                        <option value="11:00">11:00 AM</option>
+                        <option value="14:00">2:00 PM</option>
+                        <option value="15:00">3:00 PM</option>
+                        <option value="16:00">4:00 PM</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="bookingMessage">What would you like to focus on? (Optional)</label>
+                    <textarea id="bookingMessage" placeholder="Tell Saranya about your goals and challenges..." rows="4"></textarea>
+                </div>
+                <button type="submit" class="payment-btn">Schedule Session</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
