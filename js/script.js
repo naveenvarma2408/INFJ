@@ -191,7 +191,7 @@ let cardElement = null;
 const EMAILJS_SERVICE_ID = 'service_0e7turb';
 const EMAILJS_TEMPLATE_ID = 'template_0qeeqaq';
 const EMAILJS_PUBLIC_KEY = 'zHFsL8wyNhu2aCpUI';
-const FREE_TRIAL_RECIPIENT = 'saranyakolukuluri@gmail.com';
+const FREE_TRIAL_RECIPIENT = 'nirantaraveda@gmail.com';
 const FREE_TRIAL_RECIPIENT_NAME = 'Nirantara Veda Team';
 
 function initializeEmailJS() {
@@ -252,14 +252,13 @@ function openPaymentModal(service, amount) {
     currentAmount = amount;
     
     const serviceNames = {
-        'transformation': 'Transformation Package',
-        'infj-intensive': 'INFJ Healing Intensive', 
-        'ongoing': 'Ongoing Coaching'
+        'six-month-path': '6-Month Clarity Path',
+        'twelve-month-expansion': '12-Month Sacred Expansion'
     };
     
     document.getElementById('serviceName').textContent = serviceNames[service];
-    document.getElementById('paymentAmount').textContent = `$${amount}`;
-    document.getElementById('btnAmount').textContent = `$${amount}`;
+    document.getElementById('paymentAmount').textContent = formatInrAmount(amount);
+    document.getElementById('btnAmount').textContent = formatInrAmount(amount);
     document.getElementById('paymentModal').style.display = 'block';
     
     // Initialize Stripe when modal opens
@@ -270,8 +269,173 @@ function openPaymentModal(service, amount) {
     }, 100);
 }
 
+function formatInrAmount(amount) {
+    return `INR ${Number(amount).toLocaleString('en-IN')}`;
+}
+
 function openBookingModal(service) {
+    const slotSelect = document.getElementById('bookingSlot');
+
+    if (slotSelect) {
+        slotSelect.innerHTML = '<option value="">Choose a 1-hour slot</option>';
+
+        const slots = generateWeekendSlots({
+            days: [0, 6],
+            hours: [13, 14, 15, 16, 17],
+            weeksAhead: 3
+        });
+
+        slots.forEach(slot => {
+            const option = document.createElement('option');
+            option.value = slot.toISOString();
+            option.textContent = formatSlotLabel(slot, true);
+            slotSelect.appendChild(option);
+        });
+    }
+
+    const message = document.getElementById('bookingMessageBox');
+    if (message) {
+        message.style.display = 'none';
+        message.textContent = '';
+        message.className = 'form-message';
+    }
+
+    document.getElementById('bookingForm').reset();
     document.getElementById('bookingModal').style.display = 'block';
+}
+
+function generateWeekendSlots({ days, hours, weeksAhead }) {
+    const slots = [];
+    const now = new Date();
+    const candidate = new Date(now);
+    const endDate = new Date(now);
+
+    candidate.setMinutes(0, 0, 0);
+    endDate.setDate(endDate.getDate() + (weeksAhead * 7));
+    endDate.setHours(23, 59, 59, 999);
+
+    while (candidate <= endDate) {
+        if (days.includes(candidate.getDay())) {
+            hours.forEach(hour => {
+                const slot = new Date(candidate);
+                slot.setHours(hour, 0, 0, 0);
+
+                if (slot > now) {
+                    slots.push(slot);
+                }
+            });
+        }
+
+        candidate.setDate(candidate.getDate() + 1);
+        candidate.setHours(0, 0, 0, 0);
+    }
+
+    return slots;
+}
+
+function formatSlotLabel(slot, includeDuration = false) {
+    const start = slot.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit'
+    });
+    const endSlot = new Date(slot);
+    endSlot.setHours(endSlot.getHours() + 1);
+    const end = endSlot.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit'
+    });
+
+    const dateLabel = slot.toLocaleDateString('en-US', {
+        weekday: 'long',
+        month: 'short',
+        day: 'numeric'
+    });
+
+    return includeDuration ? `${dateLabel} - ${start} to ${end}` : `${dateLabel} - ${start}`;
+}
+
+function setBookingMessage(message, type) {
+    const messageBox = document.getElementById('bookingMessageBox');
+    if (!messageBox) {
+        return;
+    }
+
+    messageBox.className = `form-message ${type}`;
+    messageBox.textContent = message;
+    messageBox.style.display = 'block';
+}
+
+function buildBookingEmailBody(bookingData) {
+    return [
+        'Discovery Session Request',
+        '',
+        `Name: ${bookingData.name}`,
+        `Email: ${bookingData.email}`,
+        `Requested Slot: ${bookingData.slotLabel}`,
+        `Session Length: 1 hour`,
+        '',
+        'What they would like to focus on:',
+        bookingData.message || 'No additional notes provided.',
+        '',
+        'Submitted from NirantaraVeda website.'
+    ].join('\n');
+}
+
+const COACHING_PLAN_LABELS = {
+    'six-month-path': '6-Month Clarity Path',
+    'twelve-month-expansion': '12-Month Sacred Expansion'
+};
+
+function openCoachingPlanModal(planKey) {
+    const selectedPlan = COACHING_PLAN_LABELS[planKey] || 'Coaching Plan';
+    const selectedPlanInput = document.getElementById('coachingPlanSelected');
+    const message = document.getElementById('coachingPlanMessage');
+
+    if (selectedPlanInput) {
+        selectedPlanInput.value = selectedPlan;
+        selectedPlanInput.dataset.planKey = planKey;
+    }
+
+    if (message) {
+        message.style.display = 'none';
+        message.textContent = '';
+        message.className = 'form-message';
+    }
+
+    document.getElementById('coachingPlanForm').reset();
+
+    if (selectedPlanInput) {
+        selectedPlanInput.value = selectedPlan;
+        selectedPlanInput.dataset.planKey = planKey;
+    }
+
+    document.getElementById('coachingPlanModal').style.display = 'block';
+}
+
+function setCoachingPlanMessage(message, type) {
+    const messageBox = document.getElementById('coachingPlanMessage');
+    if (!messageBox) {
+        return;
+    }
+
+    messageBox.className = `form-message ${type}`;
+    messageBox.textContent = message;
+    messageBox.style.display = 'block';
+}
+
+function buildCoachingPlanEmailBody(requestData) {
+    return [
+        'Coaching Plan Request',
+        '',
+        `Selected Plan: ${requestData.planName}`,
+        `Name: ${requestData.name}`,
+        `Email: ${requestData.email}`,
+        '',
+        'What they are looking for:',
+        requestData.expectations,
+        '',
+        'Submitted from NirantaraVeda website.'
+    ].join('\n');
 }
 
 function openFreeTrialModal() {
@@ -406,6 +570,77 @@ function closeModal(modalId) {
     document.getElementById(modalId).style.display = 'none';
 }
 
+async function processCoachingPlanRequest(event) {
+    event.preventDefault();
+
+    const submitButton = event.target.querySelector('button[type="submit"]');
+    const selectedPlanInput = document.getElementById('coachingPlanSelected');
+    const requestData = {
+        planKey: selectedPlanInput?.dataset.planKey || '',
+        planName: selectedPlanInput?.value.trim() || '',
+        name: document.getElementById('coachingPlanName').value.trim(),
+        email: document.getElementById('coachingPlanEmail').value.trim(),
+        expectations: document.getElementById('coachingPlanExpectations').value.trim()
+    };
+
+    if (!requestData.planName || !requestData.name || !requestData.email || !requestData.expectations) {
+        setCoachingPlanMessage('Please complete all fields before sending your request.', 'error');
+        return;
+    }
+
+    if (!validateEmail(requestData.email)) {
+        setCoachingPlanMessage('Please enter a valid email address.', 'error');
+        return;
+    }
+
+    submitButton.disabled = true;
+    submitButton.textContent = 'Submitting...';
+    setCoachingPlanMessage('Preparing your coaching plan request...', 'loading');
+
+    try {
+        if (!window.emailjs) {
+            throw new Error('EmailJS SDK is not loaded');
+        }
+
+        if (
+            EMAILJS_SERVICE_ID.startsWith('YOUR_') ||
+            EMAILJS_TEMPLATE_ID.startsWith('YOUR_') ||
+            EMAILJS_PUBLIC_KEY.startsWith('YOUR_')
+        ) {
+            throw new Error('EmailJS credentials are not configured');
+        }
+
+        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+            to_email: FREE_TRIAL_RECIPIENT,
+            to_name: FREE_TRIAL_RECIPIENT_NAME,
+            from_name: requestData.name,
+            from_email: requestData.email,
+            reply_to: requestData.email,
+            selected_plan: requestData.planName,
+            slot: requestData.planName,
+            expectations: requestData.expectations,
+            subject: `Coaching Plan Request - ${requestData.planName} - ${requestData.name}`,
+            message: buildCoachingPlanEmailBody(requestData)
+        });
+
+        setCoachingPlanMessage('Your coaching plan request has been sent. Nirantara Veda will contact you soon.', 'success');
+        showNotification('Coaching plan request submitted successfully.', 'success');
+        event.target.reset();
+
+        if (selectedPlanInput) {
+            selectedPlanInput.value = requestData.planName;
+            selectedPlanInput.dataset.planKey = requestData.planKey;
+        }
+    } catch (error) {
+        console.error('Coaching plan EmailJS error:', error);
+        setCoachingPlanMessage('Email could not be sent right now. Please check your EmailJS configuration.', 'error');
+        showNotification('Coaching plan request failed to send.', 'error');
+    } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Request This Plan';
+    }
+}
+
 async function processPayment(event) {
     event.preventDefault();
     
@@ -452,7 +687,7 @@ async function processPayment(event) {
         
         // Re-enable submit button
         submitButton.disabled = false;
-        submitButton.innerHTML = `<span class="btn-text">Complete Payment</span><span class="btn-amount">$${currentAmount}</span>`;
+        submitButton.innerHTML = `<span class="btn-text">Complete Payment</span><span class="btn-amount">${formatInrAmount(currentAmount)}</span>`;
     }
 }
 
@@ -673,7 +908,7 @@ function resetPaymentForm() {
     const submitButton = document.querySelector('.payment-btn');
     if (submitButton) {
         submitButton.disabled = false;
-        submitButton.innerHTML = `<span class="btn-text">Complete Payment</span><span class="btn-amount">$${currentAmount}</span>`;
+        submitButton.innerHTML = `<span class="btn-text">Complete Payment</span><span class="btn-amount">${formatInrAmount(currentAmount)}</span>`;
     }
     
     // Clear Stripe card element
@@ -737,12 +972,16 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('click', function(event) {
         const paymentModal = document.getElementById('paymentModal');
         const bookingModal = document.getElementById('bookingModal');
+        const coachingPlanModal = document.getElementById('coachingPlanModal');
         
         if (event.target === paymentModal) {
             closeModal('paymentModal');
         }
         if (event.target === bookingModal) {
             closeModal('bookingModal');
+        }
+        if (event.target === coachingPlanModal) {
+            closeModal('coachingPlanModal');
         }
     });
 });
@@ -760,38 +999,75 @@ function processUPIDirectPayment(event) {
     // This function has been integrated into processPayment()
 }
 
-function processBooking(event) {
+async function processBooking(event) {
     event.preventDefault();
-    
-    const formData = new FormData(event.target);
+
+    const submitButton = event.target.querySelector('button[type="submit"]');
     const bookingData = {
-        name: document.getElementById('bookingName').value,
-        email: document.getElementById('bookingEmail').value,
-        date: document.getElementById('bookingDate').value,
-        time: document.getElementById('bookingTime').value,
-        message: document.getElementById('bookingMessage').value
+        name: document.getElementById('bookingName').value.trim(),
+        email: document.getElementById('bookingEmail').value.trim(),
+        slot: document.getElementById('bookingSlot').value,
+        slotLabel: document.getElementById('bookingSlot').selectedOptions[0]?.textContent || '',
+        message: document.getElementById('bookingMessage').value.trim()
     };
-    
-    if (!validateEmail(bookingData.email)) {
-        showNotification('Please enter a valid email address', 'error');
+
+    if (!bookingData.name || !bookingData.email || !bookingData.slot) {
+        setBookingMessage('Please complete all required fields and choose a weekend time slot.', 'error');
         return;
     }
-    
-    // Show success message
-    showNotification('Booking request sent! Nirantara Veda will contact you within 24 hours to confirm your session.', 'success');
-    
-    // In a real implementation, send booking data to your backend
-    console.log('Booking Data:', bookingData);
-    
-    closeModal('bookingModal');
-    document.getElementById('bookingForm').reset();
+
+    if (!validateEmail(bookingData.email)) {
+        setBookingMessage('Please enter a valid email address.', 'error');
+        return;
+    }
+
+    submitButton.disabled = true;
+    submitButton.textContent = 'Submitting...';
+    setBookingMessage('Preparing your discovery session request...', 'loading');
+
+    try {
+        if (!window.emailjs) {
+            throw new Error('EmailJS SDK is not loaded');
+        }
+
+        if (
+            EMAILJS_SERVICE_ID.startsWith('YOUR_') ||
+            EMAILJS_TEMPLATE_ID.startsWith('YOUR_') ||
+            EMAILJS_PUBLIC_KEY.startsWith('YOUR_')
+        ) {
+            throw new Error('EmailJS credentials are not configured');
+        }
+
+        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+            to_email: FREE_TRIAL_RECIPIENT,
+            to_name: FREE_TRIAL_RECIPIENT_NAME,
+            from_name: bookingData.name,
+            from_email: bookingData.email,
+            reply_to: bookingData.email,
+            slot: bookingData.slotLabel,
+            expectations: bookingData.message || 'No additional notes provided.',
+            subject: `Discovery Session Request - ${bookingData.name}`,
+            message: buildBookingEmailBody(bookingData)
+        });
+
+        setBookingMessage('Your discovery session request has been sent. Nirantara Veda will contact you soon.', 'success');
+        showNotification('Discovery session request submitted successfully.', 'success');
+        event.target.reset();
+    } catch (error) {
+        console.error('Discovery session EmailJS error:', error);
+        setBookingMessage('Email could not be sent right now. Please check your EmailJS configuration.', 'error');
+        showNotification('Discovery session request failed to send.', 'error');
+    } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Request Discovery Session';
+    }
 }
 
 function generateUPIUrl(method, amount) {
     const upiId = 'nirantaraveda@paytm'; // Replace with actual UPI ID
     const merchantName = 'nirantaraveda';
     
-    return `upi://pay?pa=${upiId}&pn=${merchantName}&am=${amount}&cu=USD&tn=Coaching Service Payment`;
+    return `upi://pay?pa=${upiId}&pn=${merchantName}&am=${amount}&cu=INR&tn=Coaching Service Payment`;
 }
 
 function showPaymentMessage(message, type) {
@@ -877,12 +1153,16 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('click', function(event) {
         const paymentModal = document.getElementById('paymentModal');
         const bookingModal = document.getElementById('bookingModal');
+        const coachingPlanModal = document.getElementById('coachingPlanModal');
         
         if (event.target === paymentModal) {
             closeModal('paymentModal');
         }
         if (event.target === bookingModal) {
             closeModal('bookingModal');
+        }
+        if (event.target === coachingPlanModal) {
+            closeModal('coachingPlanModal');
         }
     });
 });

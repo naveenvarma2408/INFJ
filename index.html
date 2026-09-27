@@ -110,30 +110,23 @@
                         <div class="content-card featured">
                             <div class="card-icon">🎯</div>
                             <h4>Discovery Session</h4>
-                            <p>A complimentary 30-minute session to explore your goals, healing needs, and coaching fit.</p>
+                            <p>A complimentary 1-hour session to explore your goals, healing needs, and coaching fit.</p>
                             <div class="price">Free</div>
                             <button class="btn-primary" onclick="openBookingModal('discovery')">Book Now</button>
                         </div>
                         <div class="content-card">
                             <div class="card-icon">🚀</div>
-                            <h4>Alignment Package</h4>
-                            <p>6-week intensive coaching program with weekly sessions and supportive follow-through.</p>
-                            <div class="price">$997</div>
-                            <button class="btn-secondary" onclick="openPaymentModal('transformation', 997)">Buy Now</button>
+                            <h4>6-Month Clarity Path</h4>
+                            <p>Six months of one-on-one coaching for steady emotional healing, spiritual grounding, and aligned action at INR 30,000 per month.</p>
+                            <div class="price">INR 30,000/month</div>
+                            <button class="btn-secondary" onclick="openCoachingPlanModal('six-month-path')">Enroll Now</button>
                         </div>
                         <div class="content-card infj-special">
                             <div class="card-icon">🔮</div>
-                            <h4>INFJ Healing Intensive</h4>
-                            <p>Specialized 8-week program designed for INFJs working through perfectionism, boundaries, and authentic self-expression.</p>
-                            <div class="price">$1,297</div>
-                            <button class="btn-secondary" onclick="openPaymentModal('infj-intensive', 1297)">Transform Now</button>
-                        </div>
-                        <div class="content-card">
-                            <div class="card-icon">🌟</div>
-                            <h4>Ongoing Spiritual Coaching</h4>
-                            <p>Monthly coaching sessions for continuous growth, clarity, and accountability.</p>
-                            <div class="price">$197/month</div>
-                            <button class="btn-secondary" onclick="openPaymentModal('ongoing', 197)">Get Started</button>
+                            <h4>12-Month Sacred Expansion</h4>
+                            <p>A year-long private coaching container for deep transformation, life redesign, and sustained spiritual integration at INR 30,000 per month.</p>
+                            <div class="price">INR 30,000/month</div>
+                            <button class="btn-secondary" onclick="openCoachingPlanModal('twelve-month-expansion')">Begin Journey</button>
                         </div>
                     </div>
                 </div>
@@ -185,7 +178,7 @@
             <div class="contact-info">
                 <div class="contact-item">
                     <span class="contact-icon">📧</span>
-                    <span>saranyakolukuluri@gmail.com</span>
+                    <span>nirantaraveda@gmail.com</span>
                 </div>
             </div>
         </div>
@@ -328,8 +321,9 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal('bookingModal')">&times;</span>
             <h2>Book Your Discovery Session</h2>
-            <p>Schedule your complimentary 30-minute discovery session with Nirantara Veda</p>
+            <p>Schedule your complimentary 1-hour discovery session with Nirantara Veda.</p>
             <form id="bookingForm" onsubmit="processBooking(event)">
+                <div id="bookingMessageBox" class="form-message" style="display:none;"></div>
                 <div class="form-group">
                     <label for="bookingName">Full Name</label>
                     <input type="text" id="bookingName" placeholder="Your Name" required>
@@ -339,26 +333,16 @@
                     <input type="email" id="bookingEmail" placeholder="your@email.com" required>
                 </div>
                 <div class="form-group">
-                    <label for="bookingDate">Preferred Date</label>
-                    <input type="date" id="bookingDate" required>
-                </div>
-                <div class="form-group">
-                    <label for="bookingTime">Preferred Time</label>
-                    <select id="bookingTime" required>
-                        <option value="">Select a time</option>
-                        <option value="09:00">9:00 AM</option>
-                        <option value="10:00">10:00 AM</option>
-                        <option value="11:00">11:00 AM</option>
-                        <option value="14:00">2:00 PM</option>
-                        <option value="15:00">3:00 PM</option>
-                        <option value="16:00">4:00 PM</option>
+                    <label for="bookingSlot">Select a Saturday or Sunday Slot</label>
+                    <select id="bookingSlot" required>
+                        <option value="">Choose a 1-hour slot</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="bookingMessage">What would you like to focus on? (Optional)</label>
+                    <label for="bookingMessage">What would you like to focus on during this 1-hour session? (Optional)</label>
                     <textarea id="bookingMessage" placeholder="Tell Nirantara Veda about your goals and challenges..." rows="4"></textarea>
                 </div>
-                <button type="submit" class="payment-btn">Schedule Session</button>
+                <button type="submit" class="payment-btn">Request Discovery Session</button>
             </form>
         </div>
     </div>
@@ -390,6 +374,34 @@
                     </select>
                 </div>
                 <button type="submit" class="payment-btn">Request Free Trial</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="coachingPlanModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('coachingPlanModal')">&times;</span>
+            <h2>Request Coaching Plan</h2>
+            <p>Share your details and Nirantara Veda will follow up with the right next steps for your selected plan.</p>
+            <form id="coachingPlanForm" onsubmit="processCoachingPlanRequest(event)">
+                <div id="coachingPlanMessage" class="form-message" style="display:none;"></div>
+                <div class="form-group">
+                    <label for="coachingPlanSelected">Selected Plan</label>
+                    <input type="text" id="coachingPlanSelected" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="coachingPlanName">Full Name</label>
+                    <input type="text" id="coachingPlanName" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="coachingPlanEmail">Email Address</label>
+                    <input type="email" id="coachingPlanEmail" placeholder="your@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="coachingPlanExpectations">What kind of support are you looking for?</label>
+                    <textarea id="coachingPlanExpectations" placeholder="Tell Nirantara Veda about your goals, challenges, and what you want from this coaching plan..." rows="4" required></textarea>
+                </div>
+                <button type="submit" class="payment-btn">Request This Plan</button>
             </form>
         </div>
     </div>
