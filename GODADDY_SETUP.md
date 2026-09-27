@@ -85,18 +85,18 @@ Once DNS propagates:
 1. **In GoDaddy Dashboard:**
    - Go to **Email & Office**
    - **Professional Email**
-   - Set up: `saranya@theempathguide.com`
+   - Set up: `nirantaraveda@theempathguide.com`
 
 #### **Option 2: Google Workspace ($6/month)**
 1. **At workspace.google.com:**
    - Add domain: `theempathguide.com`
    - Verify ownership via DNS
-   - Create: `saranya@theempathguide.com`
+   - Create: `nirantaraveda@theempathguide.com`
 
 #### **Option 3: Free Email Forwarding**
 1. **In GoDaddy Domain Settings:**
    - **Email Forwarding**
-   - Forward `saranya@theempathguide.com` → your current email
+   - Forward `nirantaraveda@theempathguide.com` → your current email
 
 ### 🔍 **Testing Your Setup**
 
@@ -140,12 +140,12 @@ If testing on phone and it doesn't work:
 - [ ] Change nameservers to Netlify's
 - [ ] Wait 2-24 hours for DNS propagation
 - [ ] Verify SSL certificate is active
-- [ ] Set up saranya@theempathguide.com email
+- [ ] Set up nirantaraveda@theempathguide.com email
 - [ ] Test website on all devices
 - [ ] Share your live website! 🚀
 
 ### 🌟 **Expected Result:**
-**Within 24 hours, theempathguide.com will show Saranya's professional INFJ coaching website to anyone in the world!**
+**Within 24 hours, theempathguide.com will show nirantara veda's professional INFJ coaching website to anyone in the world!**
 
 ---
 

@@ -9,9 +9,9 @@
    ```bash
    git init
    git add .
-   git commit -m "Initial commit - Saranya's Life Coach Website"
+   git commit -m "Initial commit - Nirantara Veda's Life Coach Website"
    git branch -M main
-   git remote add origin https://github.com/YOUR_USERNAME/saranya-lifecoach.git
+   git remote add origin https://github.com/YOUR_USERNAME/nirantara-veda-coaching.git
    git push -u origin main
    ```
 
@@ -25,7 +25,7 @@
 
 3. **Your site will be live at:**
    ```
-   https://YOUR_USERNAME.github.io/saranya-lifecoach
+   https://YOUR_USERNAME.github.io/nirantara-veda-coaching
    ```
 
 #### Benefits:
@@ -115,7 +115,7 @@
    index.html
    css/style.css
    js/script.js
-   assets/saranya-photo.jpeg
+   assets/nirantara-veda-photo.jpeg
    ```
 
 2. **Deploy to Netlify:**
@@ -143,7 +143,7 @@
 2. **Environment Variables:**
    ```
    STRIPE_SECRET_KEY=sk_live_...
-   EMAIL_USER=saranya@yourdomain.com
+   EMAIL_USER=nirantaraveda@yourdomain.com
    EMAIL_PASS=your-app-password
    ```
 
@@ -165,9 +165,9 @@
 # From your project directory:
 git init
 git add .
-git commit -m "Deploy Saranya's website"
+git commit -m "Deploy nirantara veda's website"
 git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/saranya-lifecoach.git
+git remote add origin https://github.com/YOUR_USERNAME/nirantara-veda-coaching.git
 git push -u origin main
 
 # Then enable Pages in GitHub repository settings
@@ -198,7 +198,7 @@ vercel
 ### **2. Connect to Hosting:**
 **For Netlify:**
 - Go to Site settings > Domain management
-- Add custom domain: `saranyakolukuluri.com`
+- Add custom domain: `nirantaraveda.com`
 - Follow DNS setup instructions
 
 **For GitHub Pages:**
@@ -210,7 +210,7 @@ vercel
 ## 📧 Email Setup (Professional Touch)
 
 ### **1. Google Workspace** ($6/month)
-- Professional email: saranya@yourdomain.com
+- Professional email: nirantaraveda@yourdomain.com
 - Google Drive, Calendar integration
 
 ### **2. Hostinger Email** ($1/month)
@@ -256,12 +256,12 @@ All recommended platforms provide **free SSL certificates**:
 ### **For Immediate Deployment (5 minutes):**
 1. **Go to [netlify.com](https://netlify.com)**
 2. **Drag your project folder** to the deploy area
-3. **Get instant URL** like: `https://saranya-lifecoach.netlify.app`
+3. **Get instant URL** like: `https://nirantara-veda-coaching.netlify.app`
 4. **Share the link** - your website is live!
 
 ### **For Professional Setup (1 hour):**
 1. **Deploy to Netlify** (as above)
-2. **Buy custom domain** (saranyakolukuluri.com)
+2. **Buy custom domain** (nirantaraveda.com)
 3. **Connect domain** in Netlify settings
 4. **Set up professional email**
 5. **Add Google Analytics**
@@ -275,4 +275,4 @@ Your website will be live and professional! 🚀
 - **GitHub Pages Guide**: [pages.github.com](https://pages.github.com)
 - **Custom Domain Help**: Most providers have 24/7 chat support
 
-Ready to go live? Choose your deployment method and let's make Saranya's coaching website accessible to the world! 🌟
+Ready to go live? Choose your deployment method and let's make nirantara veda's coaching website accessible to the world! 🌟

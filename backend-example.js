@@ -11,6 +11,48 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+// Free trial booking email endpoint
+app.post('/send-free-trial-request', async (req, res) => {
+  try {
+    const { name, email, expectations, slotLabel } = req.body;
+
+    const nodemailer = require('nodemailer');
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_APP_PASSWORD
+      }
+    });
+
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: 'saranyakolukuluri@gmail.com',
+      replyTo: email,
+      subject: `Free Trial Session Request - ${name}`,
+      html: `
+        <h2>Free Trial Session Request</h2>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Requested Slot:</strong> ${slotLabel}</p>
+        <p><strong>What they are expecting:</strong></p>
+        <p>${expectations.replace(/\n/g, '<br>')}</p>
+      `
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    res.send({ success: true });
+  } catch (error) {
+    console.error('Error sending free trial request:', error);
+    res.status(400).send({
+      error: {
+        message: error.message
+      }
+    });
+  }
+});
+
 // Create Payment Intent endpoint
 app.post('/create-payment-intent', async (req, res) => {
   try {
@@ -146,8 +188,8 @@ async function sendConfirmationEmail(email, paymentData) {
       <p><strong>Service:</strong> ${paymentData.service}</p>
       <p><strong>Amount:</strong> $${(paymentData.amount / 100).toFixed(2)}</p>
       <p><strong>Payment ID:</strong> ${paymentData.payment_intent_id}</p>
-      <p>Saranya will contact you within 24 hours to schedule your sessions.</p>
-      <p>Best regards,<br>Saranya Kolukuluri</p>
+      <p>Nirantara Veda will contact you within 24 hours to schedule your sessions.</p>
+      <p>Best regards,<br>Nirantara Veda</p>
     `
   };
 

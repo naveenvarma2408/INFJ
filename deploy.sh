@@ -1,7 +1,7 @@
 #!/bin/bash
 # Deployment script for The Empath Guide (theempathguide.com)
 
-echo "🚀 Deploying The Empath Guide - Saranya's INFJ Coaching Website..."
+echo "🚀 Deploying The Empath Guide - Nirantara Veda's INFJ Coaching Website..."
 echo "🌐 Target Domain: theempathguide.com"
 echo ""
 
@@ -51,6 +51,6 @@ echo "5. 🎉 YOUR LIVE WEBSITE:"
 echo "   - https://theempathguide.com"
 echo "   - Accessible to everyone worldwide!"
 echo ""
-echo "📧 Don't forget to set up: saranya@theempathguide.com"
+echo "📧 Don't forget to set up: nirantaraveda@gmail.com"
 echo ""
 echo "🚀 The Empath Guide is ready to go live!"

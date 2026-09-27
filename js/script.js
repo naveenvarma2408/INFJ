@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Smooth scrolling for navigation links
-    const navLinks = document.querySelectorAll('.nav-link');
+    const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -188,6 +188,18 @@ let selectedUPIApp = '';
 let stripe = null;
 let cardElement = null;
 
+const EMAILJS_SERVICE_ID = 'service_0e7turb';
+const EMAILJS_TEMPLATE_ID = 'template_0qeeqaq';
+const EMAILJS_PUBLIC_KEY = 'zHFsL8wyNhu2aCpUI';
+const FREE_TRIAL_RECIPIENT = 'saranyakolukuluri@gmail.com';
+const FREE_TRIAL_RECIPIENT_NAME = 'Nirantara Veda Team';
+
+function initializeEmailJS() {
+    if (window.emailjs && EMAILJS_PUBLIC_KEY && !EMAILJS_PUBLIC_KEY.startsWith('YOUR_')) {
+        emailjs.init(EMAILJS_PUBLIC_KEY);
+    }
+}
+
 // Initialize Stripe (Replace with your publishable key)
 const STRIPE_PUBLISHABLE_KEY = 'pk_test_51234567890abcdef...'; // Replace with your actual Stripe publishable key
 
@@ -260,6 +272,134 @@ function openPaymentModal(service, amount) {
 
 function openBookingModal(service) {
     document.getElementById('bookingModal').style.display = 'block';
+}
+
+function openFreeTrialModal() {
+    const slotSelect = document.getElementById('freeTrialSlot');
+
+    if (slotSelect) {
+        slotSelect.innerHTML = '<option value="">Choose a slot</option>';
+
+        const slots = [];
+        const candidate = new Date();
+
+        while (slots.length < 6) {
+            if (candidate.getDay() === 0) {
+                const sundaySlot = new Date(candidate);
+                sundaySlot.setHours(15, 0, 0, 0);
+                slots.push(sundaySlot);
+            }
+
+            candidate.setDate(candidate.getDate() + 1);
+        }
+
+        slots.forEach(slot => {
+            const option = document.createElement('option');
+            option.value = slot.toISOString();
+            option.textContent = `${slot.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })} - 3:00 PM`;
+            slotSelect.appendChild(option);
+        });
+    }
+
+    const message = document.getElementById('freeTrialMessage');
+    if (message) {
+        message.style.display = 'none';
+        message.textContent = '';
+        message.className = 'form-message';
+    }
+
+    document.getElementById('freeTrialForm').reset();
+    document.getElementById('freeTrialModal').style.display = 'block';
+}
+
+function setFreeTrialMessage(message, type) {
+    const messageBox = document.getElementById('freeTrialMessage');
+    if (!messageBox) {
+        return;
+    }
+
+    messageBox.className = `form-message ${type}`;
+    messageBox.textContent = message;
+    messageBox.style.display = 'block';
+}
+
+function buildFreeTrialEmailBody(requestData) {
+    return [
+        'Free Trial Session Request',
+        '',
+        `Name: ${requestData.name}`,
+        `Email: ${requestData.email}`,
+        `Requested Slot: ${requestData.slotLabel}`,
+        '',
+        'What they are expecting from the session:',
+        requestData.expectations,
+        '',
+        'Submitted from NirantaraVeda website.'
+    ].join('\n');
+}
+
+async function processFreeTrialRequest(event) {
+    event.preventDefault();
+
+    const submitButton = event.target.querySelector('button[type="submit"]');
+    const requestData = {
+        name: document.getElementById('freeTrialName').value.trim(),
+        email: document.getElementById('freeTrialEmail').value.trim(),
+        expectations: document.getElementById('freeTrialExpectations').value.trim(),
+        slot: document.getElementById('freeTrialSlot').value,
+        slotLabel: document.getElementById('freeTrialSlot').selectedOptions[0]?.textContent || ''
+    };
+
+    if (!requestData.name || !requestData.email || !requestData.expectations || !requestData.slot) {
+        setFreeTrialMessage('Please complete all fields and choose a Sunday 3:00 PM slot.', 'error');
+        return;
+    }
+
+    if (!validateEmail(requestData.email)) {
+        setFreeTrialMessage('Please enter a valid email address.', 'error');
+        return;
+    }
+
+    submitButton.disabled = true;
+    submitButton.textContent = 'Submitting...';
+    setFreeTrialMessage('Preparing your request...', 'loading');
+
+    try {
+        if (!window.emailjs) {
+            throw new Error('EmailJS SDK is not loaded');
+        }
+
+        if (
+            EMAILJS_SERVICE_ID.startsWith('YOUR_') ||
+            EMAILJS_TEMPLATE_ID.startsWith('YOUR_') ||
+            EMAILJS_PUBLIC_KEY.startsWith('YOUR_')
+        ) {
+            throw new Error('EmailJS credentials are not configured');
+        }
+
+        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+            to_email: FREE_TRIAL_RECIPIENT,
+            to_name: FREE_TRIAL_RECIPIENT_NAME,
+            from_name: requestData.name,
+            from_email: requestData.email,
+            reply_to: requestData.email,
+            slot: requestData.slotLabel,
+            expectations: requestData.expectations,
+            subject: `Free Trial Session Request - ${requestData.name}`,
+            message: buildFreeTrialEmailBody(requestData)
+        });
+
+        setFreeTrialMessage('Your free trial request has been sent. Nirantara Veda will contact you soon.', 'success');
+        showNotification('Free trial request submitted successfully.', 'success');
+        event.target.reset();
+    } catch (error) {
+        console.error('Free trial EmailJS error:', error);
+        setFreeTrialMessage('Email could not be sent right now. Please check your EmailJS configuration.', 'error');
+        showNotification('Free trial request failed to send.', 'error');
+    } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Request Free Trial';
+    }
 }
 
 function closeModal(modalId) {
@@ -579,6 +719,8 @@ function updatePaymentDetails(method) {
 
 // Event Listeners for Payment Method Selection
 document.addEventListener('DOMContentLoaded', function() {
+    initializeEmailJS();
+
     // Initialize Stripe on page load
     setTimeout(() => {
         initializeStripe();
@@ -636,7 +778,7 @@ function processBooking(event) {
     }
     
     // Show success message
-    showNotification('Booking request sent! Saranya will contact you within 24 hours to confirm your session.', 'success');
+    showNotification('Booking request sent! Nirantara Veda will contact you within 24 hours to confirm your session.', 'success');
     
     // In a real implementation, send booking data to your backend
     console.log('Booking Data:', bookingData);

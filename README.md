@@ -1,12 +1,12 @@
-# Saranya Kolukuluri - INFJ Life Coach Website
+# Nirantara Veda - INFJ Life Coach Website
 
-A responsive website for **Saranya Kolukuluri**, a personal life coach featuring three main service sections: educational videos, journal insights, and one-on-one coaching sessions. **Specializing in INFJ healing and support for sensitive personality types.**
+A responsive website for **Nirantara Veda**, a personal life coach featuring three main service sections: educational videos, journal insights, and one-on-one coaching sessions. **Specializing in INFJ healing and support for sensitive personality types.**
 
-# Saranya Kolukuluri - INFJ Life Coach Website
+# Nirantara Veda - INFJ Life Coach Website
 
 🌟 **Live Website**: [Deploy to see your live URL]
 
-A responsive website for **Saranya Kolukuluri**, a personal life coach featuring three main service sections: educational videos, journal insights, and one-on-one coaching sessions. **Specializing in INFJ healing and support for sensitive personality types.**
+A responsive website for **Nirantara Veda**, a personal life coach featuring three main service sections: educational videos, journal insights, and one-on-one coaching sessions. **Specializing in INFJ healing and support for sensitive personality types.**
 
 ## 🎯 Features
 
@@ -52,6 +52,59 @@ The website includes Stripe integration. To enable real payments:
 3. **Deploy Backend**: Use provided `backend-example.js`
 
 See `STRIPE_SETUP.md` for detailed payment setup instructions.
+
+## ✉️ Free Trial Email Setup with EmailJS
+
+The free-trial form sends mail through EmailJS and delivers it to `naveen910.varma@gmail.com`.
+
+### 1. Create the EmailJS service
+1. Sign in to [EmailJS](https://www.emailjs.com/)
+2. Add your email service provider
+3. Create a template
+4. Copy the following values into `js/script.js`:
+
+- `EMAILJS_SERVICE_ID`
+- `EMAILJS_TEMPLATE_ID`
+- `EMAILJS_PUBLIC_KEY`
+
+### 2. Use these template variables
+In your EmailJS template, use these variables exactly:
+
+- `to_email`
+- `to_name`
+- `from_name`
+- `from_email`
+- `reply_to`
+- `slot`
+- `expectations`
+- `subject`
+- `message`
+
+### 3. Suggested EmailJS template content
+Use this as the template body:
+
+```text
+Subject: {{subject}}
+
+To: {{to_name}} <{{to_email}}>
+From: {{from_name}} <{{from_email}}>
+Reply-To: {{reply_to}}
+
+Requested Slot: {{slot}}
+
+What they are expecting from the session:
+{{expectations}}
+
+Full Message:
+{{message}}
+```
+
+### 4. Where it sends
+- Recipient email: `naveen910.varma@gmail.com`
+- Recipient name: `Naveen Varma`
+
+### 5. After setup
+Replace the placeholder values in `js/script.js` and the form will send directly from the browser.
 
 ## Project Structure
 
@@ -105,8 +158,8 @@ The website uses a modern gradient color scheme:
 - Background: `#f8f9fa`
 
 ### Content
-- Replace placeholder contact information in the Contact section (currently saranya@lifecoach.com)
-- Update the About section with Saranya's personal coaching background
+- Replace placeholder contact information in the Contact section (currently nirantaraveda@lifecoach.com)
+- Update the About section with nirantara veda's personal coaching background
 - Add actual video links and journal content
 - Customize pricing and session details
 
@@ -168,5 +221,5 @@ Simply upload all files to your web server or hosting platform.
 
 **Created**: January 2026  
 **License**: MIT  
-**Coach**: Saranya Kolukuluri - INFJ Life Coach  
+**Coach**: Nirantara Veda - INFJ Life Coach  
 **Author**: Personal Life Coach Website Template

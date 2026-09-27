@@ -72,7 +72,7 @@ Netlify will automatically:
 ### ✅ **Step 4: Set Up Professional Email**
 
 #### **Option 1: Google Workspace ($6/month)**
-- Get `saranya@theempathguide.com`
+- Get `nirantaraveda@theempathguide.com`
 - Professional email with Gmail interface
 - Google Drive, Calendar included
 
@@ -81,7 +81,7 @@ Netlify will automatically:
 - More affordable option
 
 #### **Option 3: Free Forwarding**
-- Forward `saranya@theempathguide.com` to existing Gmail
+- Forward `nirantaraveda@theempathguide.com` to existing Gmail
 - Set up in your domain registrar's email settings
 
 ### ⏱️ **Timeline:**
